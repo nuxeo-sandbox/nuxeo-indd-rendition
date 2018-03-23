@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 @Deploy({"nuxeo-indd-rendition-core"})
 public class TestInddPreviewGeneration {
 
-    protected final List<String> events = Arrays.asList("aboutToCreate", "beforeDocumentModification");
+    protected final List<String> events = Arrays.asList("documentCreated", "beforeDocumentModification");
 
     @Inject
     protected EventService s;
