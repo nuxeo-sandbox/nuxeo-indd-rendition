@@ -7,6 +7,7 @@ import org.nuxeo.ecm.automation.test.AutomationFeature;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
+import org.nuxeo.ecm.core.work.api.WorkManager;
 import org.nuxeo.ecm.platform.test.PlatformFeature;
 import org.nuxeo.labs.indd.rendition.worker.InddPreviewWorker;
 import org.nuxeo.runtime.test.runner.Deploy;
@@ -16,6 +17,7 @@ import org.nuxeo.runtime.transaction.TransactionHelper;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(FeaturesRunner.class)
 @Features(PlatformFeature.class)
@@ -29,15 +31,18 @@ public class TestInddPreviewWorker {
     @Inject
     CoreSession session;
 
+    @Inject
+    WorkManager wm;
+
     @Test
-    public void TestWorker() {
+    public void TestWorker() throws InterruptedException {
         File file = new File(getClass().getResource("/files/test.indd").getPath());
         DocumentModel doc = session.createDocumentModel(session.getRootDocument().getPathAsString(),"file","File");
         doc.setPropertyValue("file:content",new FileBlob(file));
         doc = session.createDocument(doc);
+        TransactionHelper.commitOrRollbackTransaction();
 
-        InddPreviewWorker worker = new InddPreviewWorker(doc.getRepositoryName(),doc.getId(),"file:content");
-        worker.work();
+        wm.awaitCompletion(60, TimeUnit.SECONDS);
 
         TransactionHelper.startTransaction();
 
