@@ -3,15 +3,9 @@ package org.nuxeo.labs.indd.rendition.worker;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
-import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
-import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.work.AbstractWork;
 import org.nuxeo.labs.indd.rendition.InddPreviewHelper;
-import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
-
-import java.util.HashMap;
 
 public class InddPreviewWorker extends AbstractWork {
 
@@ -45,15 +39,9 @@ public class InddPreviewWorker extends AbstractWork {
             return;
         }
 
-        TransactionHelper.commitOrRollbackTransaction();
-
         setStatus("Running conversions");
 
-        try {
-            InddPreviewHelper.setThumbnailAndPreview(workingDocument);
-        } finally {
-            TransactionHelper.startTransaction();
-        }
+        InddPreviewHelper.setThumbnailAndPreview(workingDocument);
 
         setStatus("Saving");
         session.saveDocument(workingDocument);
