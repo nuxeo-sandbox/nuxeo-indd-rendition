@@ -1,0 +1,12 @@
+<component name="org.nuxeo.labs.indd.rendition.commandline">
+
+    <require>org.nuxeo.ecm.platform.commandline.executor.service.defaultContrib</require>
+
+    <extension point="command" target="org.nuxeo.ecm.platform.commandline.executor.service.CommandLineExecutorComponent">
+        <command enabled="true" name="inddpagepreview">
+            <commandLine>exiftool</commandLine>
+            <parameterString>-m -q -q -G -b -json #{inputFilePath}</parameterString>
+            <installationDirective>You need to install exiftool</installationDirective>
+        </command>
+    </extension>
+</component>
