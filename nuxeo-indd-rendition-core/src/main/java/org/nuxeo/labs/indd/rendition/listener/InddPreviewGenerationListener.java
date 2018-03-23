@@ -10,7 +10,7 @@ import org.nuxeo.ecm.core.work.api.WorkManager;
 import org.nuxeo.labs.indd.rendition.worker.InddPreviewWorker;
 import org.nuxeo.runtime.api.Framework;
 
-public class InddPreviewGeneration implements EventListener {
+public class InddPreviewGenerationListener implements EventListener {
 
     public void handleEvent(Event event) {
         EventContext ctx = event.getContext();

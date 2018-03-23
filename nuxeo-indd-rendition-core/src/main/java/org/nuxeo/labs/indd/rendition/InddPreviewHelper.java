@@ -76,11 +76,15 @@ public class InddPreviewHelper {
 
             Object pageImage = resultMap.get("XMP:PageImage");
 
-            if (pageImage== null || !(pageImage instanceof List)) {
-                return new ArrayList<>();
-            }
+            List<String> pagesbase64 = new ArrayList<>();
 
-            List<String> pagesbase64 = (List)pageImage;
+            if (pageImage== null) {
+                return new ArrayList<>();
+            } else if (pageImage instanceof String) {
+                pagesbase64.add((String) pageImage);
+            } else if (pageImage instanceof List) {
+                pagesbase64 = (List<String>) pageImage;
+            }
 
             List<Blob> pagesJpeg = new ArrayList<>();
 
@@ -104,7 +108,6 @@ public class InddPreviewHelper {
     public static Blob generatePdf(List<Blob> jpegs) {
         ConversionService conversionService = Framework.getService(ConversionService.class);
         List<Blob> pdfPage = new ArrayList<>();
-        Blob pdf = null;
 
         for(Blob jpeg: jpegs) {
             BlobHolder result = conversionService.convert("image2pdf", new SimpleBlobHolder(jpeg), new HashMap<>());

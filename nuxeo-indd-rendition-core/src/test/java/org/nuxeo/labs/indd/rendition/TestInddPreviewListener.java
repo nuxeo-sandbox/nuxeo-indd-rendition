@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 @RunWith(FeaturesRunner.class)
 @Features({ PlatformFeature.class })
 @Deploy({"nuxeo-indd-rendition-core"})
-public class TestInddPreviewGeneration {
+public class TestInddPreviewListener {
 
     protected final List<String> events = Arrays.asList("documentCreated", "beforeDocumentModification");
 
