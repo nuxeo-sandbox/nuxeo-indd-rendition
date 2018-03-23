@@ -2,7 +2,7 @@
 <component name="org.nuxeo.labs.indd.rendition.listener">
 
   <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
-    <listener async="true" postCommit="true" name="inddpreviewgeneration"
+    <listener async="false" postCommit="false" name="inddpreviewgeneration"
       class="org.nuxeo.labs.indd.rendition.listener.InddPreviewGeneration">
         <event>aboutToCreate</event>
         <event>beforeDocumentModification</event>
