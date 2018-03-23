@@ -31,7 +31,9 @@ public class InddPreviewGeneration implements EventListener {
 
         boolean isIndd = blob != null && blob.getFilename().toLowerCase().endsWith(".indd");
 
-        if (fileIsDirty && isIndd) {
+        boolean isNotVersion = !doc.isVersion() && !doc.isProxy();
+
+        if (isNotVersion && isIndd && (event.getName().equals("documentCreated") || fileIsDirty)) {
             InddPreviewWorker work = new InddPreviewWorker(doc.getRepositoryName(), doc.getId(), "file:content");
             WorkManager workManager = Framework.getService(WorkManager.class);
             workManager.schedule(work, WorkManager.Scheduling.IF_NOT_SCHEDULED, true);
