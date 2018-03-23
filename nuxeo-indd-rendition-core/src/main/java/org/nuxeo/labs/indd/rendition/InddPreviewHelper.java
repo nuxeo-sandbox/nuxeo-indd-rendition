@@ -38,16 +38,18 @@ public class InddPreviewHelper {
 
         if (!doc.hasFacet("Thumbnail")) {
             doc.addFacet("Thumbnail");
-            doc.setPropertyValue("thumb:thumbnail", (Serializable) pages.get(0));
         }
+        doc.setPropertyValue("thumb:thumbnail", (Serializable) pages.get(0));
 
         if (!doc.hasFacet("Compound")) {
             doc.addFacet("Compound");
-            Blob pdf = InddPreviewHelper.generatePdf(pages);
-            List<Blob> renditions = new ArrayList<>();
-            renditions.add(pdf);
-            doc.setPropertyValue("compound:renditions", (Serializable) renditions);
         }
+
+        Blob pdf = InddPreviewHelper.generatePdf(pages);
+        List<Blob> renditions = new ArrayList<>();
+        renditions.add(pdf);
+        doc.setPropertyValue("compound:renditions", (Serializable) renditions);
+
     }
 
 
