@@ -17,6 +17,9 @@ import javax.inject.Inject;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import static org.nuxeo.labs.indd.rendition.InddPreviewHelper.COMPOUND_DOCUMENT_FACET;
+import static org.nuxeo.labs.indd.rendition.InddPreviewHelper.COMPOUND_DOCUMENT_RENDITION_PROPERTY;
+
 @RunWith(FeaturesRunner.class)
 @Features(PlatformFeature.class)
 @Deploy({
@@ -46,9 +49,9 @@ public class TestInddPreviewWorker {
 
         doc = session.getDocument(doc.getRef());
 
-        Assert.assertTrue(doc.hasFacet("Compound"));
+        Assert.assertTrue(doc.hasFacet(COMPOUND_DOCUMENT_FACET));
         Assert.assertTrue(doc.hasFacet("Thumbnail"));
-        Assert.assertNotNull(doc.getPropertyValue("compound:renditions"));
+        Assert.assertNotNull(doc.getPropertyValue(COMPOUND_DOCUMENT_RENDITION_PROPERTY));
         Assert.assertNotNull(doc.getPropertyValue("thumb:thumbnail"));
     }
 
@@ -66,7 +69,7 @@ public class TestInddPreviewWorker {
 
         doc = session.getDocument(doc.getRef());
 
-        Assert.assertFalse(doc.hasFacet("Compound"));
+        Assert.assertFalse(doc.hasFacet(COMPOUND_DOCUMENT_FACET));
     }
 
 

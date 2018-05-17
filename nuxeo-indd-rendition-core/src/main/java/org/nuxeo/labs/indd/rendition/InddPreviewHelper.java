@@ -26,6 +26,8 @@ public class InddPreviewHelper {
 
     public static final String COMMAND_NAME = "inddpagepreview";
     public static final String INPUT_FILE_PATH_PARAMETER = "inputFilePath";
+    public static final String COMPOUND_DOCUMENT_FACET = "CompoundDocument";
+    public static final String COMPOUND_DOCUMENT_RENDITION_PROPERTY = "compound:renditions";
 
 
     public static void setThumbnailAndPreview(DocumentModel doc) {
@@ -41,14 +43,14 @@ public class InddPreviewHelper {
         }
         doc.setPropertyValue("thumb:thumbnail", (Serializable) pages.get(0));
 
-        if (!doc.hasFacet("Compound")) {
-            doc.addFacet("Compound");
+        if (!doc.hasFacet(COMPOUND_DOCUMENT_FACET)) {
+            doc.addFacet(COMPOUND_DOCUMENT_FACET);
         }
 
         Blob pdf = InddPreviewHelper.generatePdf(pages);
         List<Blob> renditions = new ArrayList<>();
         renditions.add(pdf);
-        doc.setPropertyValue("compound:renditions", (Serializable) renditions);
+        doc.setPropertyValue(COMPOUND_DOCUMENT_RENDITION_PROPERTY, (Serializable) renditions);
 
     }
 
