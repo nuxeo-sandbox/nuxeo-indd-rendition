@@ -16,6 +16,7 @@ import org.nuxeo.ecm.platform.commandline.executor.api.CommandLineExecutorServic
 import org.nuxeo.ecm.platform.commandline.executor.api.ExecResult;
 import org.nuxeo.ecm.platform.pdf.PDFMerge;
 import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.transaction.TransactionHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +31,28 @@ public class InddPreviewHelper {
     public static final String COMPOUND_DOCUMENT_RENDITION_PROPERTY = "compound:renditions";
 
 
-    public static void setThumbnailAndPreview(DocumentModel doc) {
+    public static DocumentModel setThumbnailAndPreview(DocumentModel doc) {
 
-        List<Blob> pages = getPagesAsImages((Blob) doc.getPropertyValue("file:content"));
+        Blob blob = (Blob) doc.getPropertyValue("file:content");
+
+        TransactionHelper.commitOrRollbackTransaction();
+
+        List<Blob> pages;
+        Blob pdf;
+
+        try {
+            pages = getPagesAsImages(blob);
+            pdf = InddPreviewHelper.generatePdf(pages);
+        } finally {
+            TransactionHelper.startTransaction();
+        }
 
         if (pages.size()<= 0) {
-            return;
+            return doc;
         }
+
+        //reload document
+        doc = doc.getCoreSession().getDocument(doc.getRef());
 
         if (!doc.hasFacet("Thumbnail")) {
             doc.addFacet("Thumbnail");
@@ -47,13 +63,12 @@ public class InddPreviewHelper {
             doc.addFacet(COMPOUND_DOCUMENT_FACET);
         }
 
-        Blob pdf = InddPreviewHelper.generatePdf(pages);
         List<Blob> renditions = new ArrayList<>();
         renditions.add(pdf);
         doc.setPropertyValue(COMPOUND_DOCUMENT_RENDITION_PROPERTY, (Serializable) renditions);
 
+        return doc;
     }
-
 
     public static List<Blob> getPagesAsImages(Blob blob) {
         CommandLineExecutorService cles = Framework.getService(CommandLineExecutorService.class);

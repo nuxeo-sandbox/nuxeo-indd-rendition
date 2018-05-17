@@ -41,7 +41,7 @@ public class InddPreviewWorker extends AbstractWork {
 
         setStatus("Running conversions");
 
-        InddPreviewHelper.setThumbnailAndPreview(workingDocument);
+        workingDocument = InddPreviewHelper.setThumbnailAndPreview(workingDocument);
 
         setStatus("Saving");
         session.saveDocument(workingDocument);
