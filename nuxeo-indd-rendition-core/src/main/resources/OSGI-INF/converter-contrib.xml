@@ -1,0 +1,8 @@
+<component name="org.nuxeo.labs.indd.rendition.converters">
+    <extension point="converter" target="org.nuxeo.ecm.core.convert.service.ConversionServiceImpl">
+        <converter name="InddToPDF" class="org.nuxeo.labs.indd.rendition.converter.InDesign2PdfConverter">
+            <sourceMimeType>application/x-indesign</sourceMimeType>
+            <destinationMimeType>application/pdf</destinationMimeType>
+        </converter>
+    </extension>
+</component>

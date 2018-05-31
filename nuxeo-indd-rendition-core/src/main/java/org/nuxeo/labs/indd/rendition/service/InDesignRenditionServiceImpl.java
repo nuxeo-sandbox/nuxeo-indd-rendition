@@ -1,4 +1,4 @@
-package org.nuxeo.labs.indd.rendition;
+package org.nuxeo.labs.indd.rendition.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,7 +6,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.nuxeo.ecm.automation.core.util.BlobList;
-import org.nuxeo.ecm.core.api.*;
+import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.CloseableFile;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
@@ -16,61 +18,70 @@ import org.nuxeo.ecm.platform.commandline.executor.api.CommandLineExecutorServic
 import org.nuxeo.ecm.platform.commandline.executor.api.ExecResult;
 import org.nuxeo.ecm.platform.pdf.PDFMerge;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.transaction.TransactionHelper;
+import org.nuxeo.runtime.model.ComponentContext;
+import org.nuxeo.runtime.model.ComponentInstance;
+import org.nuxeo.runtime.model.DefaultComponent;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.*;
 
-public class InddPreviewHelper {
+public class InDesignRenditionServiceImpl extends DefaultComponent implements InDesignRenditionService {
 
     public static final String COMMAND_NAME = "inddpagepreview";
     public static final String INPUT_FILE_PATH_PARAMETER = "inputFilePath";
-    public static final String COMPOUND_DOCUMENT_FACET = "CompoundDocument";
-    public static final String COMPOUND_DOCUMENT_RENDITION_PROPERTY = "compound:renditions";
 
 
-    public static DocumentModel setThumbnailAndPreview(DocumentModel doc) {
-
-        Blob blob = (Blob) doc.getPropertyValue("file:content");
-
-        TransactionHelper.commitOrRollbackTransaction();
-
-        List<Blob> pages;
-        Blob pdf;
-
-        try {
-            pages = getPagesAsImages(blob);
-            pdf = InddPreviewHelper.generatePdf(pages);
-        } finally {
-            TransactionHelper.startTransaction();
-        }
-
-        if (pages.size()<= 0) {
-            return doc;
-        }
-
-        //reload document
-        doc = doc.getCoreSession().getDocument(doc.getRef());
-
-        if (!doc.hasFacet("Thumbnail")) {
-            doc.addFacet("Thumbnail");
-        }
-        doc.setPropertyValue("thumb:thumbnail", (Serializable) pages.get(0));
-
-        if (!doc.hasFacet(COMPOUND_DOCUMENT_FACET)) {
-            doc.addFacet(COMPOUND_DOCUMENT_FACET);
-        }
-
-        List<Blob> renditions = new ArrayList<>();
-        renditions.add(pdf);
-        doc.setPropertyValue(COMPOUND_DOCUMENT_RENDITION_PROPERTY, (Serializable) renditions);
-
-        return doc;
+    /**
+     * Component activated notification.
+     * Called when the component is activated. All component dependencies are resolved at that moment.
+     * Use this method to initialize the component.
+     *
+     * @param context the component context.
+     */
+    @Override
+    public void activate(ComponentContext context) {
+        super.activate(context);
     }
 
-    public static List<Blob> getPagesAsImages(Blob blob) {
+    /**
+     * Component deactivated notification.
+     * Called before a component is unregistered.
+     * Use this method to do cleanup if any and free any resources held by the component.
+     *
+     * @param context the component context.
+     */
+    @Override
+    public void deactivate(ComponentContext context) {
+        super.deactivate(context);
+    }
+
+    /**
+     * Application started notification.
+     * Called after the application started.
+     * You can do here any initialization that requires a working application
+     * (all resolved bundles and components are active at that moment)
+     *
+     * @param context the component context. Use it to get the current bundle context
+     * @throws Exception
+     */
+    @Override
+    public void applicationStarted(ComponentContext context) {
+        // do nothing by default. You can remove this method if not used.
+    }
+
+    @Override
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
+        // Add some logic here to handle contributions
+    }
+
+    @Override
+    public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
+        // Logic to do when unregistering any contribution
+    }
+
+    @Override
+    public List<Blob> getPagesAsImages(Blob blob) {
         CommandLineExecutorService cles = Framework.getService(CommandLineExecutorService.class);
         try {
             CloseableFile closeable = blob.getCloseableFile("." + FilenameUtils.getExtension(blob.getFilename()));
@@ -122,7 +133,11 @@ public class InddPreviewHelper {
         }
     }
 
-    public static Blob generatePdf(List<Blob> jpegs) {
+    @Override
+    public Blob generatePdf(Blob blob) {
+
+        List<Blob> jpegs = getPagesAsImages(blob);
+
         ConversionService conversionService = Framework.getService(ConversionService.class);
         List<Blob> pdfPage = new ArrayList<>();
 
@@ -139,6 +154,4 @@ public class InddPreviewHelper {
             throw new NuxeoException(e);
         }
     }
-
-
 }

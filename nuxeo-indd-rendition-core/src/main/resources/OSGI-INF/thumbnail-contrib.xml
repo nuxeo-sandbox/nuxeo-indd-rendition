@@ -1,0 +1,10 @@
+<component name="org.nuxeo.labs.indd.rendition.thumbnail">
+
+    <extension point="thumbnailFactory" target="org.nuxeo.ecm.core.api.thumbnail.ThumbnailService">
+        <thumbnailFactory
+                docType="File"
+                factoryClass="org.nuxeo.labs.indd.rendition.thumbnail.InddThumbnailFactory"
+                name="thumbnailFileFactory"/>
+    </extension>
+
+</component>

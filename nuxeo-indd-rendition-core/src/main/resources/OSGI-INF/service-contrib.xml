@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.indd.rendition.service" version="1.0">
+
+  <implementation class="org.nuxeo.labs.indd.rendition.service.InDesignRenditionServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.labs.indd.rendition.service.InDesignRenditionService" />
+  </service>
+
+</component>

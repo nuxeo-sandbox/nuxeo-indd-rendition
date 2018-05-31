@@ -6,5 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-Name: nuxeo-indd-rendition-core
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: nuxeo-indd-rendition-core;singleton=true
-Nuxeo-Component: OSGI-INF/listener-contrib.xml,
-    OSGI-INF/commandline-contrib.xml
+Nuxeo-Component: OSGI-INF/commandline-contrib.xml,
+ OSGI-INF/service-contrib.xml,
+ OSGI-INF/converter-contrib.xml,
+ OSGI-INF/thumbnail-contrib.xml
