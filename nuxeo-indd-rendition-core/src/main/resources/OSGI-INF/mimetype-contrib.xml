@@ -1,0 +1,12 @@
+<component name="org.nuxeo.labs.indd.rendition.mimetype">
+    <extension point="mimetype" target="org.nuxeo.ecm.platform.mimetype.service.MimetypeRegistryService">
+        <mimetype binary="true" iconPath="image.gif" normalized="application/x-indesign">
+            <mimetypes>
+                <mimetype>application/x-indesign</mimetype>
+            </mimetypes>
+            <extensions>
+                <extension>indd</extension>
+            </extensions>
+        </mimetype>
+    </extension>
+</component>
