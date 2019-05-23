@@ -1,8 +1,9 @@
 <!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
 <package type="addon" name="nuxeo-indd-rendition" version="@VERSION@">
-  <title>Nuxeo indd rendition</title>
+  <title>Nuxeo Adobe InDesign Preview</title>
   <description>
-    <p>This plugin provides preview of InDesign files in the Nuxeo Platform</p>
+    <p>This plugin provides a preview feature for Adobe InDesign files in the Nuxeo Platform.
+      It relies on the jpeg preview embedded in the XMP metadata by InDesign</p>
   </description>
   <home-page>https://github.com/nuxeo-sandbox/nuxeo-indd-rendition</home-page>
   <vendor>Nuxeo</vendor>
