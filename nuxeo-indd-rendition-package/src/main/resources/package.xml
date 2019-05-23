@@ -2,19 +2,16 @@
 <package type="addon" name="nuxeo-indd-rendition" version="@VERSION@">
   <title>Nuxeo indd rendition</title>
   <description>
-    <p>Put here an HTML description of your Nuxeo Package.</p>
+    <p>This plugin provides preview of InDesign files in the Nuxeo Platform</p>
   </description>
-  <!-- <home-page>http://doc.nuxeo.com/</home-page> -->
-  <vendor>nuxeo</vendor>
+  <home-page>https://github.com/nuxeo-sandbox/nuxeo-indd-rendition</home-page>
+  <vendor>Nuxeo</vendor>
   <installer restart="true" />
   <uninstaller restart="true" />
-  <!-- <hotreload-support>false</hotreload-support> -->
-  <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
   <!-- Nuxeo Validation: none | inprocess | primary_validation | nuxeo_certified -->
   <nuxeo-validation>none</nuxeo-validation>
   <!-- Production State: production_ready | testing | proto -->
   <production-state>testing</production-state>
-  <supported>false</supported>
   <platforms>
     <platform>server-@DISTRIB_VERSION@</platform>
     <platform>server-@DISTRIB_VERSION@-HF*</platform>
@@ -37,6 +34,4 @@
   <!-- </provides> -->
   <license>Apache License, Version 2.0</license>
   <license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
-  <!-- Visibility: PRIVATE | MARKETPLACE | DEV | PUBLIC -->
-  <visibility>DEV</visibility>
 </package>
