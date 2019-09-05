@@ -25,7 +25,8 @@ import java.io.Serializable;
 @RepositoryConfig(init = DefaultRepositoryInit.class, cleanup = Granularity.METHOD)
 @Deploy({
         "nuxeo-indd-rendition-core",
-        "org.nuxeo.ecm.platform.convert"
+        "org.nuxeo.ecm.platform.convert",
+        "org.nuxeo.ecm.platform.thumbnail"
 })
 public class TestThumbnailFactory {
 
