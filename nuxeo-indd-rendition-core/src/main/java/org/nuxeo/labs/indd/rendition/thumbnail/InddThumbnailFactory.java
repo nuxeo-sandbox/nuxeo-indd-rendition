@@ -18,6 +18,9 @@ public class InddThumbnailFactory extends ThumbnailDocumentFactory {
         if (doc.hasFacet(ThumbnailConstants.THUMBNAIL_FACET)) {
             thumbnailBlob = (Blob) doc.getPropertyValue(ThumbnailConstants.THUMBNAIL_PROPERTY_NAME);
         }
+        if (thumbnailBlob == null) {
+            thumbnailBlob = getDefaultThumbnail(doc);
+        }
         return thumbnailBlob;
     }
 
