@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.nuxeo.ecm.automation.core.util.BlobList;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CloseableFile;
@@ -97,8 +96,8 @@ public class InDesignRenditionServiceImpl extends DefaultComponent implements In
             }
             String jsonOutput = sb.toString();
             ObjectMapper jacksonMapper = new ObjectMapper();
-            List<Map<String, Object>> resultList = jacksonMapper.readValue(jsonOutput,
-                    new TypeReference<List<HashMap<String, Object>>>() {
+            List<HashMap<String, Object>> resultList = jacksonMapper.readValue(jsonOutput,
+                    new TypeReference<>() {
                     });
             Map<String, Object> resultMap = resultList.get(0);
 
@@ -150,7 +149,7 @@ public class InDesignRenditionServiceImpl extends DefaultComponent implements In
 
         try {
             return merger.merge("preview.pdf");
-        } catch (COSVisitorException | IOException e) {
+        } catch (IOException e) {
             throw new NuxeoException(e);
         }
     }

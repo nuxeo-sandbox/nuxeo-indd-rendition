@@ -1,7 +1,0 @@
-<component name="org.nuxeo.labs.indd.rendition.preview">
-    <extension point="MimeTypePreviewer" target="org.nuxeo.ecm.platform.preview.adapter.PreviewAdapterManagerComponent">
-        <previewer class="org.nuxeo.labs.indd.rendition.preview.InDesignPreviewer">
-            <pattern>application/x-indesign</pattern>
-        </previewer>
-    </extension>
-</component>
