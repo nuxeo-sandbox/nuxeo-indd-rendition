@@ -4,18 +4,18 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-parent</artifactId>
-    <version>11.1</version>
+    <version>11.4</version>
   </parent>
 
   <groupId>org.nuxeo.labs.indd.rendition</groupId>
   <artifactId>nuxeo-indd-rendition-parent</artifactId>
-  <version>11.1.2-SNAPSHOT</version>
+  <version>11.2-SNAPSHOT</version>
   <name>Nuxeo indd rendition parent</name>
   <description/>
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.target.platform.version>11.1</nuxeo.target.platform.version>
+    <nuxeo.target.version>11.*</nuxeo.target.version>
   </properties>
 
   <modules>
