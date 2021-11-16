@@ -14,12 +14,12 @@
   <!-- Production State: production_ready | testing | proto -->
   <production-state>testing</production-state>
   <platforms>
-    <platform>server-@DISTRIB_VERSION@</platform>
-    <platform>server-@DISTRIB_VERSION@-HF*</platform>
+    <platform>server-@TARGET_PLATFORM_VERSION@</platform>
+    <platform>server-@TARGET_PLATFORM_VERSION@-*</platform>
   </platforms>
   <!-- Dependencies on other packages -->
   <dependencies>
-    <package>nuxeo-10.10-HF54:1.0.0</package>
+    <package>nuxeo-10.10-HF54</package>
   </dependencies>
   <!-- <dependencies> -->
   <!-- <package>another-package:1.0.0:1.0.0</package> -->

@@ -14,6 +14,10 @@
   <description/>
   <packaging>pom</packaging>
 
+  <properties>
+    <nuxeo.target.platform.version>10.10</nuxeo.target.platform.version>
+  </properties>
+
   <modules>
     <module>nuxeo-indd-rendition-core</module>
     <module>nuxeo-indd-rendition-package</module>
