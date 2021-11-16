@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.nuxeo.ecm.automation.core.util.BlobList;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CloseableFile;
@@ -54,20 +53,6 @@ public class InDesignRenditionServiceImpl extends DefaultComponent implements In
     @Override
     public void deactivate(ComponentContext context) {
         super.deactivate(context);
-    }
-
-    /**
-     * Application started notification.
-     * Called after the application started.
-     * You can do here any initialization that requires a working application
-     * (all resolved bundles and components are active at that moment)
-     *
-     * @param context the component context. Use it to get the current bundle context
-     * @throws Exception
-     */
-    @Override
-    public void applicationStarted(ComponentContext context) {
-        // do nothing by default. You can remove this method if not used.
     }
 
     @Override
@@ -150,7 +135,7 @@ public class InDesignRenditionServiceImpl extends DefaultComponent implements In
 
         try {
             return merger.merge("preview.pdf");
-        } catch (COSVisitorException | IOException e) {
+        } catch (IOException e) {
             throw new NuxeoException(e);
         }
     }
