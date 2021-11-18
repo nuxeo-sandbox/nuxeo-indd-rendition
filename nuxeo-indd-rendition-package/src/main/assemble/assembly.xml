@@ -48,6 +48,7 @@
           <artifact scope="provided"/>
           <artifact type="pom"/>
           <artifact groupId="org.nuxeo.lib*"/>
+          <artifact groupId="org.nuxeo.build*"/>
         </excludes>
       </artifact:set>
     </copy>
