@@ -38,7 +38,7 @@ jobs:
           ]
 
     - name: Install OS dependencies
-      run: sudo apt-get -y install exiftool
+      run: sudo apt-get -y install imagemagick exiftool
 
     - name: Change ImageMagick policy to allow pdf->png conversion.
       run: |
